@@ -148,3 +148,17 @@ define('COMPOSER_HOME', false);
  *      e.g. 'someone@example.com' or 'someone@example.com, someone-else@example.com, ...'
  */
 define('EMAIL_ON_ERROR', false);
+
+/**
+ * OPTIONAL
+ * Send messages to telegram chanel or not
+ *
+ * @var serialized array ( 'chat_id' =>'' , 'bot_api_token'=>''  )
+ * for example:  serialize(array(
+ *		'chat_id' => '3443499451',
+ *		'bot_api_token' => 'asdffasf3434:zkwSK4rserQEO3xpVB4nasDFRG'
+ *	))
+ */
+define('TELEGRAM', false);
+
+

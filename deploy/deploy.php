@@ -8,6 +8,8 @@
  * @link    https://github.com/markomarkovic/simple-php-git-deploy/
  */
 
+require_once "Telegram_client.php";
+
 // =========================================[ Configuration start ]===
 
 /**
@@ -161,6 +163,18 @@ if (!defined('COMPOSER_HOME')) define('COMPOSER_HOME', false);
  */
 if (!defined('EMAIL_ON_ERROR')) define('EMAIL_ON_ERROR', false);
 
+/**
+ * create telegram client if arguments are defined
+ */
+$tlg = null;
+if (TELEGRAM) {
+        try {
+            $tlg = new Tlg(TELEGRAM);
+        } catch (Exception $e) {
+            // must be logged
+        }
+}
+
 // ===========================================[ Configuration end ]===
 
 // If there's authorization error, set the correct HTTP header.
@@ -308,6 +322,11 @@ if (defined('USE_COMPOSER') && USE_COMPOSER === true) {
 
 // ==================================================[ Deployment ]===
 
+// send msg to telegram
+if ( $tlg != null ) {
+    $tlg->send(sprintf("Start deploy on %s",$_SERVER['SERVER_NAME'] ));
+}
+
 // Compile exclude parameters
 $exclude = '';
 foreach (unserialize(EXCLUDE) as $exc) {
@@ -334,6 +353,7 @@ if (CLEAN_UP) {
 
 // =======================================[ Run the command steps ]===
 $output = '';
+$return_code = '';
 foreach ($commands as $command) {
 	set_time_limit(TIME_LIMIT); // Reset the time limit for each command
 	if (file_exists(TMP_DIR) && is_dir(TMP_DIR)) {
@@ -390,8 +410,16 @@ Cleaning up temporary files ...
 			$headers[] = sprintf('X-Mailer: PHP/%s', phpversion());
 			mail(EMAIL_ON_ERROR, $error, strip_tags(trim($output)), implode("\r\n", $headers));
 		}
+		// send msg to telegram on error
+		if ( $tlg != null ) {
+			$tlg->send(sprintf("Error deploy on %s:%s",$_SERVER['SERVER_NAME'],$error));
+		}
 		break;
 	}
+}
+// send message to telegram if ok
+if ( $return_code == '' && $tlg != null ) {
+		$tlg->send(sprintf("Ok deploy on %s", $_SERVER['SERVER_NAME'] ));
 }
 ?>
 
