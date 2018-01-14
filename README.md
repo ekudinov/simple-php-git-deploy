@@ -65,13 +65,14 @@ update the code on the _server machine_.
 
 For more info, read the source of `deploy.php`.
 
-## Telegram.
+## Telegram
 
-You must:
-1.Create telegram channel https://telegram.wiki/generalfaq/channels#how_do_i_create_a_channel
-2.Create telegram bot https://core.telegram.org/bots and add it to telegram channel
-3.Get telegram channel id and bot api token to put in yours config file
-4.Profit!!!
+Telegram client send message on start deploy and if resalt ok - ok message else error message.
+
+1. Create telegram channel https://telegram.wiki/generalfaq/channels#how_do_i_create_a_channel
+1. Create telegram bot https://core.telegram.org/bots and add it to telegram channel
+1. Get telegram channel id and bot api token to put in yours config file
+1. Profit!!!
 
 ## Tips'n'Tricks
 
