@@ -1,5 +1,5 @@
 # Simple PHP Git deploy script
-_Automatically deploy the code using PHP and Git._
+_Automatically deploy the code using PHP and Git with messages on telegram channel about results. ._
 
 ## Requirements
 
@@ -65,6 +65,14 @@ update the code on the _server machine_.
 
 For more info, read the source of `deploy.php`.
 
+## Telegram.
+
+You must:
+1.Create telegram channel https://telegram.wiki/generalfaq/channels#how_do_i_create_a_channel
+2.Create telegram bot https://core.telegram.org/bots and add it to telegram channel
+3.Get telegram channel id and bot api token to put in yours config file
+4.Profit!!!
+
 ## Tips'n'Tricks
 
  * Because `rsync` is used for deployment, the `TARGET_DIR` doesn't have to be
@@ -79,4 +87,4 @@ For more info, read the source of `deploy.php`.
 
 ---
 
-If you find this script useful, consider donating BTC to `1fLnPZkMYw1TFNEsJZCciwDAmUhDw2wit`.
+If you find this script useful, consider donating BTC to `1fLnPZkMYw1TFNEsJZCciwDAmUhDw2wit`.(for init author of this project)
